@@ -1,17 +1,9 @@
-<!--
-=========================================================
-* Soft UI Dashboard 3 - v1.1.0
-=========================================================
+<?php
+session_start();
 
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+// include '../../connection/security.php'; 
+?>
 
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,23 +11,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../../assets/img/logoaverroes.png">
   <title>
-    Soft UI Dashboard 3 by Creative Tim
+    Siakad Averroes
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
   <!-- Nucleo Icons -->
-  <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.1.0" rel="stylesheet" />
-  <link rel="stylesheet" href="../../assets/css/style.css">
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <link href="../../assets/css/style.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -47,8 +39,8 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-5 text-center mx-auto">
-              <h1 class="text-white mb-2 mt-5">Siakad Averroes</h1>
-              <p class="text-lead text-white">Website Login Siswa Averroes</p>
+              <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+              <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
             </div>
           </div>
         </div>
@@ -73,6 +65,7 @@
                     </svg>
                   </a>
                 </div>
+
                 <div class="col-3 me-auto px-1">
                   <a class="btn btn-outline-light w-100" href="javascript:;">
                     <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -94,26 +87,34 @@
                 </div>
               </div>
               <div class="card-body">
-                <form role="form text-left">
+                <?php if (!empty($errors)): ?>
+                  <div class="alert alert-danger">
+                    <?php foreach ($errors as $error): ?>
+                      <p class="mb-0"><?php echo $error; ?></p>
+                    <?php endforeach; ?>
+                  </div>
+                <?php endif; ?>
+                <form role="form text-left" method="POST" action="../../controller/auth/register.php">
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="username-addon">
+                    <input type="text" name="nama" class="form-control" placeholder="Nama" aria-label="Nama" aria-describedby="name-addon" required>
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="username-addon">
+                    <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="username-addon" required>
                   </div>
                   <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                    <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required>
                   </div>
+
                   <div class="form-check form-check-info text-left">
-                    <input class="gradient form-check-input " type="checkbox" value="" id="flexCheckDefault" checked>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
                     <label class="form-check-label" for="flexCheckDefault">
-                      I agree the <a href="javascript:;" class="text-info text-gradient font-weight-bolder">Terms and Conditions</a>
+                      Saya setuju dengan <a href="javascript:;" class="text-dark font-weight-bolder">Syarat dan Ketentuan</a>
                     </label>
                   </div>
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-info w-100 my-4 mb-2">Sign up</button>
+                    <button type="submit" name="register" class="btn bg-gradient-dark w-100 my-4 mb-2">Daftar</button>
                   </div>
-                  <p class="text-sm mt-3 mb-0">Already have an account? <a href="javascript:;" class="text-info text-gradient font-weight-bolder">Sign in</a></p>
+                  <p class="text-sm mt-3 mb-0">Sudah punya akun? <a href="signin.php" class="text-dark font-weight-bolder">Masuk</a></p>
                 </form>
               </div>
             </div>
@@ -125,11 +126,15 @@
     <footer class="footer py-5">
       <div class="container">
         <div class="row">
+
           <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
             <a href="https://www.instagram.com/averroes.is/" target="_blank" class="text-secondary me-xl-4 me-4">
               <span class="text-lg fab fa-instagram"></span>
             </a>
-            <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
+            <a href="https://www.instagram.com/averroes.is/" target="_blank" class="text-secondary me-xl-4 me-4">
+              <span class="text-lg fab fa-facebook"></span>
+            </a>
+            <a href="https://www.tiktok.com/@averroes.is" target="_blank" class="text-secondary me-xl-4 me-4">
               <span class="text-lg fab fa-tiktok"></span>
             </a>
           </div>
@@ -139,7 +144,7 @@
             <p class="mb-0 text-secondary">
               Copyright © <script>
                 document.write(new Date().getFullYear())
-              </script> Averroes
+              </script> Soft by Creative Tim.
             </p>
           </div>
         </div>
